@@ -1,4 +1,8 @@
 name: 'GitHub Container Registry Login'
+inputs:
+  github-token:
+    description: 'GitHub Token'
+    required: true
 runs:
   using: "composite"
   steps:
@@ -10,4 +14,4 @@ runs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ inputs.github-token }}
