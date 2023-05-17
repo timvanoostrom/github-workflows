@@ -14,10 +14,10 @@ on:
         required: true
         type: string
       docker_files:
-        description: 'Docker files'
+        description: 'Docker files JSON'
         required: true
         type: string
-        default: '["Dockerfile"]'
+        default: 'name=value::["Dockerfile"]'
 
 jobs:
   build-container:
@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        value: ${{ fromArray(input.docker_files) }}
+        value: ${{ fromJson(input.docker_files) }}
           inputs.docker_files }}
     steps:
       - name: Login to GitHub Container Registry
