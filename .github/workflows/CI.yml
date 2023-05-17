@@ -30,6 +30,7 @@ jobs:
   build-container:
     name: Build container
     runs-on: ubuntu-latest
+    needs: dockerfiles
     strategy:
       matrix:
         value: ${{ fromJson(needs.dockerfiles.outputs.matrix) }}
