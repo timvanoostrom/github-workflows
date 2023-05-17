@@ -8,10 +8,12 @@ on:
       repo_name:
         description: 'Repository name'
         required: true
+        type: string
         default: 'amsterdam'
       project_name:
         description: 'Project name'
         required: true
+        type: string
 
 jobs:
   build-container:
