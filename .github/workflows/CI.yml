@@ -15,7 +15,6 @@ on:
         type: string
       docker_files:
         description: 'Docker files JSON'
-        required: true
         type: string
         default: 'name=value::["Dockerfile"]'
 
