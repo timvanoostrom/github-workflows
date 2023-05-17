@@ -16,15 +16,23 @@ on:
       docker_files:
         description: 'Docker files JSON'
         type: string
-        default: 'name=value::["Dockerfile"]'
+        default: '[\"Dockerfile\"]'
 
 jobs:
+  dockerfiles:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.build.outputs.matrix }}
+    steps:
+      - id: build
+        run: echo "matrix=${{ inputs.docker_files }}" >> $GITHUB_OUTPUT
+
   build-container:
     name: Build container
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        value: ${{ fromJson(inputs.docker_files) }}
+        value: ${{ fromJson(needs.dockerfiles.outputs.matrix) }}
           inputs.docker_files }}
     steps:
       - name: Login to GitHub Container Registry
