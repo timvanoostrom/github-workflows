@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        value: ${{ fromJson(input.docker_files) }}
+        value: ${{ fromJson(inputs.docker_files) }}
           inputs.docker_files }}
     steps:
       - name: Login to GitHub Container Registry
