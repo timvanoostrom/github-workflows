@@ -1,9 +1,17 @@
-name: Checks
+name: CI Checks
 
 on:
   pull_request:
     branches: main
   workflow_call:
+    inputs:
+      repo_name:
+        description: 'Repository name'
+        required: true
+        default: 'amsterdam'
+      project_name:
+        description: 'Project name'
+        required: true
 
 jobs:
   build-container:
