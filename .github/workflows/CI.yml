@@ -34,7 +34,6 @@ jobs:
     strategy:
       matrix:
         value: ${{ fromJson(needs.dockerfiles.outputs.matrix) }}
-          inputs.docker_files }}
     steps:
       - name: Login to GitHub Container Registry
         uses: amsterdam/opdrachten-team-github-workflows/ghcr-login@v1
