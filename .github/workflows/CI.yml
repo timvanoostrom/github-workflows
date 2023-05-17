@@ -13,11 +13,19 @@ on:
         description: 'Project name'
         required: true
         type: string
+      docker_files:
+        description: 'Docker files'
+        required: true
+        type: array
+        default: ['Dockerfile']
 
 jobs:
   build-container:
     name: Build container
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        value: ${{ inputs.docker_files }}
     steps:
       - name: Login to GitHub Container Registry
         uses: amsterdam/opdrachten-team-github-workflows/ghcr-login@v1
@@ -31,6 +39,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
+          dockerfile: ${{ matrix.value }}
           push: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
