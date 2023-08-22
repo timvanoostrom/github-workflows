@@ -2,15 +2,6 @@ name: CI Checks
 
 on:
   workflow_call:
-    inputs:
-      repo_name:
-        description: 'Repository name'
-        type: string
-        default: 'amsterdam'
-      project_name:
-        description: 'Project name'
-        required: true
-        type: string
 
 jobs:
   build-container:
@@ -22,17 +13,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up Docker Buildx for Docker build caching
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build and push
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          tags: ghcr.io/${{ inputs.repo_name }}/${{ inputs.project_name }}:latest
+      - name: Docker build and push to GHCR
+        uses: amsterdam/opdrachten-team-github-workflows/build-and-push@v1
 
   test:
     name: Tests
