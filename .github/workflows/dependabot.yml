@@ -80,16 +80,23 @@ jobs:
         committer: Opdrachten Team Dependabot <opdrachten-team-dependabot@amsterdam.nl>
         commit-message: ${{ steps.variables.outputs.title }}
 
-    - name: Write message to slack
-      uses: amsterdam/opdrachten-team-github-workflows/slack-message@v1
+    - uses: someimportantcompany/github-actions-slack-message@v1
       with:
-        token: ${{ secrets.SLACK_TOKEN }}
         channel: ${{ inputs.slack_channel }}
-        message: ${{ github.workflow }}
-        pr-url: ${{ steps.cpr.outputs.pull-request-url }}
-        acceptance-pipeline: ${{ inputs.acceptance_pipeline }}
-        production-pipeline: ${{ inputs.production_pipeline }}
-        acceptance-urls: ${{ inputs.acceptance_urls }}
-        production-urls: ${{ inputs.production_urls }}
-        timetell-code: ${{ inputs.timetell_code }}
-        release-url: ${{ steps.variables.outputs.release_url }}
+        bot-token:  ${{ secrets.SLACK_TOKEN }}
+        text: Test message
+
+
+
+      - name: Write message to slack
+        uses: amsterdam/opdrachten-team-github-workflows/slack-message@v1
+        with:
+          slack-token: ${{ secrets.SLACK_TOKEN }}
+          slack-channel: ${{ inputs.slack_channel }}
+          pull-request-url: ${{ steps.cpr.outputs.pull-request-url }}
+          acceptance-pipeline: ${{ inputs.acceptance_pipeline }}
+          production-pipeline: ${{ inputs.production_pipeline }}
+          acceptance-urls: ${{ inputs.acceptance_urls }}
+          production-urls: ${{ inputs.production_urls }}
+          timetell-code: ${{ inputs.timetell_code }}
+          release-url: ${{ steps.variables.outputs.release_url }}

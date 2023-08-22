@@ -31,13 +31,19 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - uses: someimportantcompany/github-actions-slack-message@v1
+      with:
+        channel: ${{ inputs.channel }}
+        bot-token: ${{ inputs.token }}
+        text: ${{ inputs.message }}
+
     - name: Send Slack Message
       uses: archive/github-actions-slack@master
       id: send-message
       with:
         slack-function: send-message
         slack-bot-user-oauth-access-token: ${{ inputs.token }}
-        slack-channel: ${{ inputs.slack_channel }}
+        slack-channel: ${{ inputs.channel }}
         slack-text: ${{ inputs.message }}
 
     - name: Send "Slack Message" Result
