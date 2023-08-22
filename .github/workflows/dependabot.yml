@@ -85,9 +85,11 @@ jobs:
         echo "The channel is ${{ inputs.slack_channel }}"
 
     - name: Print Slack token
+      env:
+        SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
       run: |
         echo "The channel is ${{ inputs.slack_channel }}"
-        echo "The secret is = ${{ secrets.SLACK_TOKEN }}"
+        echo "The secret is = $env:SLACK_TOKEN"
 
     - name: Write message to slack
       uses: amsterdam/opdrachten-team-github-workflows/slack-message@v1
