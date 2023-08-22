@@ -35,6 +35,7 @@ runs:
       shell: bash
       run: |
         echo "token=${{ inputs.token }}"
+        echo "token=${{ secrets.SLACK_TOKEN }}"
         echo "channel=${{ inputs.channel }}"
         echo "message=${{ inputs.message }}"
         echo "pr-url=${{ inputs.pr-url }}"
