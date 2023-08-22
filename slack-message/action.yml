@@ -31,6 +31,20 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Print all variables
+      shell: bash
+      run: |
+        echo "token=$token"
+        echo "channel=$channel"
+        echo "message=$message"
+        echo "pr-url=$pr-url"
+        echo "release-url=$release-url"
+        echo "acceptance-pipeline=$acceptance-pipeline"
+        echo "production-pipeline=$production-pipeline"
+        echo "acceptance-urls=$acceptance-urls"
+        echo "production-urls=$production-urls"
+        echo "timetell-code=$timetell-code"
+
     - uses: someimportantcompany/github-actions-slack-message@v1
       with:
         channel: ${{ inputs.channel }}
