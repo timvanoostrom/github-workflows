@@ -18,4 +18,4 @@ runs:
         push: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        tags: ghcr.io/${steps.repo.outputs.lowercase}:latest
+        tags: ghcr.io/${{ steps.repo.outputs.lowercase }}:latest
