@@ -80,6 +80,10 @@ jobs:
         committer: Opdrachten Team Dependabot <opdrachten-team-dependabot@amsterdam.nl>
         commit-message: ${{ steps.variables.outputs.title }}
 
+    - name: Print Slack channel
+      run: |
+        echo "The channel is ${{ inputs.slack_channel }}"
+
     - name: Print Slack token
       run: |
         echo "The channel is ${{ inputs.slack_channel }}"
