@@ -38,7 +38,7 @@ runs:
       id: send-message
       with:
         slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ input.token }}
+        slack-bot-user-oauth-access-token: ${{ inputs.token }}
         slack-channel: ${{ inputs.slack_channel }}
         slack-text: ${{ github.workflow }}
 
