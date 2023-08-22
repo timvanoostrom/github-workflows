@@ -96,7 +96,7 @@ jobs:
           slack_token: ${{ secrets.SLACK_TOKEN }}
       if: ${{ env.slack_token == '' }}
       run: |
-        echo "The secret \"SLACK_TOKEN\" has not been made; please go to \"settings > secrets > actions\" to create it"
+        echo "The secret \"SLACK_TOKEN\" has not been created; please go to \"settings > secrets > actions\" to create it"
         exit 1
 
     - name: Write message to slack
