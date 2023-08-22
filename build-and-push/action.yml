@@ -14,4 +14,4 @@ runs:
         push: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        tags: ghcr.io/${{ github.repository }}:latest | tr "[:upper:]" "[:lower:]"
+        tags: ghcr.io/${{ github.repository | tr "[:upper:]" "[:lower:]" }}:latest
