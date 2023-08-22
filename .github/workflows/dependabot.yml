@@ -81,7 +81,7 @@ jobs:
         commit-message: ${{ steps.variables.outputs.title }}
 
     - name: Print Slack token
-      run: echo ${{ secrets.SLACK_TOKEN }}
+      run: echo "The secret is = ${{ secrets.SLACK_TOKEN }}"
 
     - name: Write message to slack
       uses: amsterdam/opdrachten-team-github-workflows/slack-message@v1
