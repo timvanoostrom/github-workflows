@@ -1,4 +1,6 @@
 name: 'GitHub Container Registry Login'
+description: 'Checks out the repository and logs in to GitHub Container Registry'
+
 inputs:
   github-token:
     description: 'GitHub Token'

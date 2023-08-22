@@ -17,17 +17,10 @@ jobs:
     name: Update Dependencies
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-      with:
-        ref: ${{ inputs.default_branch }}
-
     - name: Login to GitHub Container Registry
-      uses: docker/login-action@v2
+      uses: amsterdam/opdrachten-team-github-workflows/ghcr-login@v1
       with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Update dependencies file
       run: make requirements
@@ -55,6 +48,7 @@ jobs:
       run: echo "Today is ${{ steps.date.outputs.today }}"
 
     - name: Create Pull Request
+      id: cpr
       uses: peter-evans/create-pull-request@v5
       with:
         title: 'Maintenance run ${{ steps.date.outputs.today }}'
@@ -66,8 +60,33 @@ jobs:
         committer: Opdrachten Team Dependabot <opdrachten-team-dependabot@amsterdam.nl>
         commit-message: 'Maintenance run ${{ steps.date.outputs.today }}'
 
-    - uses: someimportantcompany/github-actions-slack-message@v1
-      with:
-        channel: ${{ inputs.slack_channel }}
-        bot-token:  ${{ secrets.SLACK_BOT_TOKEN }}
-        text: Firing a bot-token message from Github Actions
+#    - uses: someimportantcompany/github-actions-slack-message@v1
+#      with:
+#        channel: ${{ inputs.slack_channel }}
+#        bot-token:  ${{ secrets.SLACK_BOT_TOKEN }}
+#        text: Firing a bot-token message from Github Actions
+
+#      - name: Run Python Script
+#        id: python_script
+#        run: python my_script.py
+#        env:
+#          INPUT_PARAM1: ${{ github.event.inputs.param1 }}
+#          INPUT_PARAM2: ${{ github.event.inputs.param2 }}
+#
+#      echo "Store: ${{ github.event.inputs.myInput }}"
+#      INPUT_STORE=${{ github.event.inputs.myInput }} python3 test.py
+
+    - name: Print output
+      run: |
+        echo "1. Review Pull Request ${{ steps.cpr.outputs.pull-request-url }} :eyes:"
+        echo "2. Release Naar Acceptatie (merge naar master) ${{ steps.cpr.outputs.pull-request-url }} :twisted_rightwards_arrows:"
+#        echo "3. Controleer Acceptatie Deployment Job',
+#            self.acceptance_pipeline,
+#            ':jenkins-acc:"
+#        echo "4. Controleer Acceptatie', self.acceptance_urls_str, ':release-acc:"
+#        echo "5. Release Naar Productie (tag versie)', self.tag_url, ':label:"
+#        echo "6. Controleer Productie Deployment Job',
+#            f'{self.production_pipeline}job/{self.next_tag}/',
+#            ':jenkins_ci:"
+#        echo "7. Controleer Productie', self.production_urls_str, ':rocket:"
+#        echo "8. Timetell code:', self.timetell, ':clock1:"
