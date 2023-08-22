@@ -18,10 +18,10 @@ on:
         type: string
       acceptance_urls:
         description: 'Acceptance urls'
-        type: array
+        type: string
       production_urls:
         description: 'Production urls'
-        type: array
+        type: string
 
 jobs:
   update-dependencies:
