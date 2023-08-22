@@ -8,27 +8,25 @@ inputs:
   channel:
     description: 'Slack channel'
     required: true
+  message:
+    description: 'Message to send'
+    required: true
   pr-url:
     description: 'Pull request url'
-    required: true
-  acceptance-pipeline:
-    description: 'Acceptance pipeline'
-    required: true
-  production-pipeline:
-    description: 'Production pipeline'
-    required: true
-  acceptance-urls:
-    description: 'Acceptance urls'
-    required: true
-  production-urls:
-    description: 'Production urls'
-    required: true
-  timetell-code:
-    description: 'Timetell code'
     required: true
   release-url:
     description: 'Release url'
     required: true
+  acceptance-pipeline:
+    description: 'Acceptance pipeline'
+  production-pipeline:
+    description: 'Production pipeline'
+  acceptance-urls:
+    description: 'Acceptance urls'
+  production-urls:
+    description: 'Production urls'
+  timetell-code:
+    description: 'Timetell code'
 
 runs:
   using: "composite"
@@ -40,7 +38,7 @@ runs:
         slack-function: send-message
         slack-bot-user-oauth-access-token: ${{ inputs.token }}
         slack-channel: ${{ inputs.slack_channel }}
-        slack-text: ${{ github.workflow }}
+        slack-text: ${{ inputs.message }}
 
     - name: Send "Slack Message" Result
       shell: bash

@@ -85,6 +85,7 @@ jobs:
       with:
         token: ${{ secrets.SLACK_TOKEN }}
         channel: ${{ inputs.slack_channel }}
+        message: ${{ github.workflow }}
         pr-url: ${{ steps.cpr.outputs.pull-request-url }}
         acceptance-pipeline: ${{ inputs.acceptance_pipeline }}
         production-pipeline: ${{ inputs.production_pipeline }}
