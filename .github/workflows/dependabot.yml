@@ -55,7 +55,8 @@ jobs:
         echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
         echo "release_url=${{ github.event.repository.html_url }}/releases/new?tag=${{ env.next_tag }};title=${{ env.title }}" >> $GITHUB_OUTPUT
         
-        # print 
+    - name: print variables
+      run: |
         echo "Today is ${{ steps.variables.outputs.today }}"
         echo "Title is ${{ steps.variables.outputs.title }}"
         echo "Latest tag is ${{ steps.variables.outputs.latest_tag }}"
