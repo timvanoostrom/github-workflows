@@ -34,14 +34,14 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.event.repository.default_branch }}
 
-    - name: Update dependencies file
-      run: make requirements
-
-    - name: Docker build and push to GHCR
-      uses: amsterdam/opdrachten-team-github-workflows/build-and-push@v1
-
-    - name: Run Tests
-      run: make test
+#    - name: Update dependencies file
+#      run: make requirements
+#
+#    - name: Docker build and push to GHCR
+#      uses: amsterdam/opdrachten-team-github-workflows/build-and-push@v1
+#
+#    - name: Run Tests
+#      run: make test
 
     - name: Construct variables
       id: variables
@@ -80,30 +80,15 @@ jobs:
         committer: Opdrachten Team Dependabot <opdrachten-team-dependabot@amsterdam.nl>
         commit-message: ${{ steps.variables.outputs.title }}
 
-    - name: Print output
-      run: |
-        echo "1. Review Pull Request ${{ steps.cpr.outputs.pull-request-url }} :eyes:"
-        echo "2. Release Naar Acceptatie (merge naar master) ${{ steps.cpr.outputs.pull-request-url }} :twisted_rightwards_arrows:"
-        if [ -n "${{ inputs.acceptance_pipeline }}" ]; then
-          echo "3. Controleer Acceptatie Deployment Job ${{ inputs.acceptance_pipeline }} :jenkins-acc:"
-        fi
-        if [ -n "${{ inputs.acceptance_urls }}" ]; then
-          echo "4. Controleer Acceptatie \n${{ inputs.acceptance_urls }} :release-acc:"
-        fi
-        echo "5. Release Naar Productie (tag versie) ${{ steps.variables.outputs.release_url }} :label:"
-        
-        if [ -n "${{ inputs.production_pipeline }}" ]; then
-          echo "6. Controleer Productie Deployment Job ${{ inputs.production_pipeline }} :jenkins_ci:"
-        fi
-        if [ -n "${{ inputs.production_urls }}" ]; then
-          echo "7. Controleer Productie \n${{ inputs.production_urls }} :rocket:"
-        fi
-        if [ -n "${{ inputs.timetell }}" ]; then
-          echo "8. Timetell code: ${{ inputs.timetell }} :clock1:"
-        fi
-
-    - uses: someimportantcompany/github-actions-slack-message@v1
+    - name: Write message to slack
+      uses: amsterdam/opdrachten-team-github-workflows/slack-message@v1
       with:
+        token: ${{ secrets.SLACK_TOKEN }}
         channel: ${{ inputs.slack_channel }}
-        bot-token:  ${{ secrets.SLACK_TOKEN }}
-        text: Test message
+        pr-url: ${{ steps.cpr.outputs.pull-request-url }}
+        acceptance-pipeline: ${{ inputs.acceptance_pipeline }}
+        production-pipeline: ${{ inputs.production_pipeline }}
+        acceptance-urls: ${{ inputs.acceptance_urls }}
+        production-urls: ${{ inputs.production_urls }}
+        timetell-code: ${{ inputs.timetell_code }}
+        release-url: ${{ steps.variables.outputs.release_url }}
