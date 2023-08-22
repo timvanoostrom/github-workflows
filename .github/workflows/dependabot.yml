@@ -34,8 +34,8 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.event.repository.default_branch }}
 
-    - name: Update dependencies file
-      run: make requirements
+#    - name: Update dependencies file
+#      run: make requirements
 
 #    - name: Docker build and push to GHCR
 #      uses: amsterdam/opdrachten-team-github-workflows/build-and-push@v1
@@ -43,19 +43,22 @@ jobs:
 #    - name: Run Tests
 #      run: make test
 
-    - name: Construct and print variables
+    - name: Construct variables
       id: variables
       run: | 
-        echo "today=$(date +'%Y-%m-%d')" >>  $GITHUB_OUTPUT
-        echo "title='Maintenance run ${{ env.today }}'" >> $GITHUB_OUTPUT
+        today=$(date +'%Y-%m-%d')
+        title='Maintenance run $today'
         git fetch --tags
         latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
-        echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
         next_tag=$(echo $latest_tag | awk -F. -v OFS=. '{$NF = $NF + 1;} 1')
-        echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
-        echo "release_url=${{ github.event.repository.html_url }}/releases/new?tag=${{ env.next_tag }};title=${{ env.title }}" >> $GITHUB_OUTPUT
         
-    - name: print variables
+        echo "today=$(date +'%Y-%m-%d')" >>  $GITHUB_OUTPUT
+        echo "title=$title" >> $GITHUB_OUTPUT
+        echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
+        echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
+        echo "release_url=${{ github.event.repository.html_url }}/releases/new?tag=$next_tag&title=$title" >> $GITHUB_OUTPUT
+        
+    - name: Print variables
       run: |
         echo "Today is ${{ steps.variables.outputs.today }}"
         echo "Title is ${{ steps.variables.outputs.title }}"
