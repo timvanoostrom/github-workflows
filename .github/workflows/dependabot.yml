@@ -102,18 +102,8 @@ jobs:
           echo "8. Timetell code: ${{ inputs.timetell }} :clock1:"
         fi
 
-#    - uses: someimportantcompany/github-actions-slack-message@v1
-#      with:
-#        channel: ${{ inputs.slack_channel }}
-#        bot-token:  ${{ secrets.SLACK_BOT_TOKEN }}
-#        text: Firing a bot-token message from Github Actions
-
-#      - name: Run Python Script
-#        id: python_script
-#        run: python my_script.py
-#        env:
-#          INPUT_PARAM1: ${{ github.event.inputs.param1 }}
-#          INPUT_PARAM2: ${{ github.event.inputs.param2 }}
-#
-#      echo "Store: ${{ github.event.inputs.myInput }}"
-#      INPUT_STORE=${{ github.event.inputs.myInput }} python3 test.py
+    - uses: someimportantcompany/github-actions-slack-message@v1
+      with:
+        channel: ${{ inputs.slack_channel }}
+        bot-token:  ${{ secrets.SLACK_TOKEN }}
+        text: Test message
