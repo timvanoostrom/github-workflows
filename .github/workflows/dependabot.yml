@@ -83,7 +83,7 @@ jobs:
           echo "3. Controleer Acceptatie Deployment Job ${{ inputs.acceptance_pipeline }} :jenkins-acc:"
         fi
         if [ -n "${{ inputs.acceptance_urls }}" ]; then
-          echo "4. Controleer Acceptatie ${{ inputs.acceptance_urls }} :release-acc:"
+          echo "4. Controleer Acceptatie \n${{ inputs.acceptance_urls }} :release-acc:"
         fi
         echo "5. Release Naar Productie (tag versie) ${{ steps.variables.outputs.release_url }} :label:"
         
@@ -91,7 +91,7 @@ jobs:
           echo "6. Controleer Productie Deployment Job ${{ inputs.production_pipeline }} :jenkins_ci:"
         fi
         if [ -n "${{ inputs.production_urls }}" ]; then
-          echo "7. Controleer Productie ${{ inputs.production_urls }} :rocket:"
+          echo "7. Controleer Productie \n${{ inputs.production_urls }} :rocket:"
         fi
         if [ -n "${{ inputs.timetell }}" ]; then
           echo "8. Timetell code: ${{ inputs.timetell }} :clock1:"
