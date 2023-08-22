@@ -3,10 +3,6 @@ name: Opdrachten Team Dependabot
 on:
   workflow_call:
     inputs:
-      default_branch:
-        description: 'Default branch'
-        type: string
-        default: 'main'
       slack_channel:
         description: 'Slack channel'
         type: string
