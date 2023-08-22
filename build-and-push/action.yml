@@ -10,7 +10,7 @@ runs:
       id: repo
       uses: ASzc/change-string-case-action@v5
       with:
-        string: github.repository
+        string: ${{ github.repository }}
     - name: Build and push
       uses: docker/build-push-action@v4
       with:
