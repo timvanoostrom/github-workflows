@@ -91,6 +91,14 @@ jobs:
         echo "The channel is ${{ inputs.slack_channel }}"
         echo "The secret is = $SLACK_TOKEN"
 
+    - name: Check is SLACK_TOKEN exists
+      env:
+          slack_token: ${{ secrets.SLACK_TOKEN }}
+      if: ${{ env.slack_token == '' }}
+      run: |
+        echo "the secret \"SLACK_TOKEN\" has not been made; echo please go to \"settings \> secrets \> actions\" to create it"
+        exit 1
+
     - name: Write message to slack
       uses: amsterdam/opdrachten-team-github-workflows/slack-message@v1
       with:
