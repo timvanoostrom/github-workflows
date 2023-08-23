@@ -27,6 +27,8 @@ jobs:
   update-dependencies:
     name: Update Dependencies
     runs-on: ubuntu-latest
+    environment:
+      name: dependabot
     steps:
     - name: Login to GitHub Container Registry
       uses: amsterdam/opdrachten-team-github-workflows/ghcr-login@v1
@@ -85,7 +87,6 @@ jobs:
         echo "The channel is ${{ inputs.slack_channel }}"
 
     - name: Print Slack token
-      environment: dependabot
       env:
         slack_token: ${{ secrets.SLACK_TOKEN }}
       run: |
@@ -93,7 +94,6 @@ jobs:
         echo "The secret is = ${{ env.slack_token}}"
 
     - name: Check if SLACK_TOKEN exists
-      environment: dependabot
       env:
         slack_token: ${{ secrets.SLACK_TOKEN }}
       if: ${{ env.slack_token == '' }}
