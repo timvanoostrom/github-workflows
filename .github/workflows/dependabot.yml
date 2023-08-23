@@ -105,12 +105,6 @@ jobs:
 #        timetell-code: ${{ inputs.timetell_code }}
 #        release-url: ${{ steps.variables.outputs.release_url }}
 
-    - uses: someimportantcompany/github-actions-slack-message@v1
-      with:
-        channel: ${{ inputs.slack_channel }}
-        bot-token: ${{ secrets.SLACK_TOKEN }}
-        text: ${{ github.event.repository.name }}
-
     - name: Send Slack Message
       uses: archive/github-actions-slack@master
       id: send-message
@@ -118,7 +112,7 @@ jobs:
         slack-function: send-message
         slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack_channel }}
-        slack-text: ${{ github.event.repository.name }}
+        slack-optional-username: ${{ github.event.repository.name }}
 
     - name: Send "Slack Message" Result
       shell: bash
@@ -134,7 +128,8 @@ jobs:
         slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack_channel }}
         slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
-        slack-text: 1. Review Pull Request "${{ steps.cpr.outputs.pull-request-url }}"
+        slack-optional-username: 1. Review Pull Request
+        slack-text: ${{ steps.cpr.outputs.pull-request-url }}
         slack-optional-icon_emoji: ":eyes:"
 
     - name: Thread message 2
@@ -144,5 +139,6 @@ jobs:
         slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack_channel }}
         slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
-        slack-text: 2. Release Naar Acceptatie (merge naar master) "${{ steps.cpr.outputs.pull-request-url }}"
+        slack-optional-username: 2. Release Naar Acceptatie (merge naar master)
+        slack-text: ${{ steps.cpr.outputs.pull-request-url }}
         slack-optional-icon_emoji: ":twisted_rightwards_arrows:"
