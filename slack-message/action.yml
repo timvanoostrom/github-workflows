@@ -31,22 +31,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Print variables
-      shell: bash
-      run: |
-        echo "token=${{ inputs.token }}"
-        echo "token=${{ inputs.token }}"
-        echo "channel=${{ inputs.channel }}"
-        echo "message=${{ inputs.message }}"
-        echo "pr-url=${{ inputs.pr-url }}"
-        echo "release-url=${{ inputs.release-url }}"
-
-    - uses: someimportantcompany/github-actions-slack-message@v1
-      with:
-        channel: ${{ inputs.channel }}
-        bot-token: ${{ inputs.token }}
-        text: ${{ inputs.message }}
-
     - name: Send Slack Message
       uses: archive/github-actions-slack@master
       id: send-message
