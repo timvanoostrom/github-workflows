@@ -89,19 +89,20 @@ jobs:
         echo "The secret \"SLACK_TOKEN\" has not been created; please go to \"settings > secrets > actions\" to create it"
         exit 1
 
-#    - name: Write message to slack
-#      uses: amsterdam/opdrachten-team-github-workflows/slack-message@v1
-#      with:
-#        slack-token: ${{ secrets.SLACK_TOKEN }}
-#        slack-channel: ${{ inputs.slack_channel }}
-#        message: No major upgrades found
-#        pull-request-url: ${{ steps.cpr.outputs.pull-request-url }}
-#        acceptance-pipeline: ${{ inputs.acceptance_pipeline }}
-#        production-pipeline: ${{ inputs.production_pipeline }}
-#        acceptance-urls: ${{ inputs.acceptance_urls }}
-#        production-urls: ${{ inputs.production_urls }}
-#        timetell-code: ${{ inputs.timetell_code }}
-#        release-url: ${{ steps.variables.outputs.release_url }}
+    - name: Write message to slack
+      uses: amsterdam/opdrachten-team-github-workflows/slack-message@v1
+      with:
+        slack-token: ${{ secrets.SLACK_TOKEN }}
+        slack-channel: ${{ inputs.slack_channel }}
+        message: No major upgrades found
+        pull-request-url: ${{ steps.cpr.outputs.pull-request-url }}
+        acceptance-pipeline: ${{ inputs.acceptance_pipeline }}
+        production-pipeline: ${{ inputs.production_pipeline }}
+        acceptance-urls: ${{ inputs.acceptance_urls }}
+        production-urls: ${{ inputs.production_urls }}
+        timetell-code: ${{ inputs.timetell_code }}
+        release-url: ${{ steps.variables.outputs.release_url }}
+        repository: ${{ github.event.repository.name }}
 
     - name: Send Slack Message
       uses: archive/github-actions-slack@master
