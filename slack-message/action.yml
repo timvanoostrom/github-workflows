@@ -34,10 +34,11 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: print channel
-      shell: bash
-      run: |
-          echo "channel: ${{ inputs.slack-channel }}"
+    - uses: someimportantcompany/github-actions-slack-message@v1
+      with:
+        channel: ${{ inputs.slack-channel }}
+        bot-token: ${{ inputs.slack-token }}
+        text: ${{ inputs.message }}
 
     - name: Send Slack Message
       uses: archive/github-actions-slack@master
