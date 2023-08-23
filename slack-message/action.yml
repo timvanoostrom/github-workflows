@@ -140,7 +140,7 @@ runs:
       shell: sh
       id: diff_checker
       run: |
-        diff=$(python3 ./deploy/diff.py)
+        diff=$(python3 deploy/diff.py)
         echo "diff=$diff" >> $GITHUB_OUTPUT
 
     - name: Thread message 9
