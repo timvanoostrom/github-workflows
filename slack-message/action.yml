@@ -35,6 +35,7 @@ runs:
   using: "composite"
   steps:
     - name: print channel
+      shell: bash
       run: |
           echo "channel: ${{ inputs.slack-channel }}"
 
