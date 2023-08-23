@@ -35,14 +35,14 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.event.repository.default_branch }}
 
-#    - name: Update dependencies file
-#      run: make requirements
-#
-#    - name: Docker build and push to GHCR
-#      uses: amsterdam/opdrachten-team-github-workflows/build-and-push@v1
-#
-#    - name: Run Tests
-#      run: make test
+    - name: Update dependencies file
+      run: make requirements
+
+    - name: Docker build and push to GHCR
+      uses: amsterdam/opdrachten-team-github-workflows/build-and-push@v1
+
+    - name: Run Tests
+      run: make test
 
     - name: Construct variables
       id: variables
@@ -102,108 +102,3 @@ jobs:
         production-urls: ${{ inputs.production_urls }}
         timetell-code: ${{ inputs.timetell_code }}
         release-url: ${{ steps.variables.outputs.release_url }}
-
-    - name: Send Slack Message
-      uses: archive/github-actions-slack@master
-      id: send-message
-      with:
-        slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
-        slack-channel: ${{ inputs.slack_channel }}
-        slack-optional-username: ${{ github.event.repository.name }}
-        slack-text: No major upgrades
-
-    - name: Send "Slack Message" Result
-      shell: bash
-      id: send-result
-      run: |
-        echo "Data - ${{ steps.send-message.outputs.slack-result }}"
-        echo "thread_ts=${{ fromJson(steps.send-message.outputs.slack-result).response.message.ts }}" >> $GITHUB_OUTPUT
-
-    - name: Thread message 1
-      uses: archive/github-actions-slack@master
-      with:
-        slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
-        slack-channel: ${{ inputs.slack_channel }}
-        slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
-        slack-optional-username: 1. Review Pull Request
-        slack-text: "URL: ${{ steps.cpr.outputs.pull-request-url }}"
-        slack-optional-icon_emoji: ":eyes:"
-
-    - name: Thread message 2
-      uses: archive/github-actions-slack@master
-      with:
-        slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
-        slack-channel: ${{ inputs.slack_channel }}
-        slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
-        slack-optional-username: 2. Release Naar Acceptatie (merge naar master)
-        slack-text: "URL: ${{ steps.cpr.outputs.pull-request-url }}"
-        slack-optional-icon_emoji: ":twisted_rightwards_arrows:"
-
-    - name: Thread message 3
-      uses: archive/github-actions-slack@master
-      with:
-        slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
-        slack-channel: ${{ inputs.slack_channel }}
-        slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
-        slack-optional-username: 3. Controleer Acceptatie Deployment Job
-        slack-text: "URL: ${{ inputs.acceptance_pipeline }}"
-        slack-optional-icon_emoji: ":jenkins-acc:"
-
-    - name: Thread message 4
-      uses: archive/github-actions-slack@master
-      with:
-        slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
-        slack-channel: ${{ inputs.slack_channel }}
-        slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
-        slack-optional-username: 4. Controleer Acceptatie
-        slack-text: "URL: ${{ inputs.acceptance_urls }}"
-        slack-optional-icon_emoji: ":release-acc:"
-
-    - name: Thread message 5
-      uses: archive/github-actions-slack@master
-      with:
-        slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
-        slack-channel: ${{ inputs.slack_channel }}
-        slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
-        slack-optional-username: 5. Release Naar Productie (tag versie)
-        slack-text: "URL: ${{ steps.variables.outputs.release_url }}"
-        slack-optional-icon_emoji: ":label:"
-
-    - name: Thread message 6
-      uses: archive/github-actions-slack@master
-      with:
-        slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
-        slack-channel: ${{ inputs.slack_channel }}
-        slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
-        slack-optional-username: 6. Controleer Productie Deployment Job
-        slack-text: "URL: ${{ inputs.production_pipeline }}"
-        slack-optional-icon_emoji: ":jenkins_ci:"
-
-    - name: Thread message 7
-      uses: archive/github-actions-slack@master
-      with:
-        slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
-        slack-channel: ${{ inputs.slack_channel }}
-        slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
-        slack-optional-username: 7. Controleer Productie
-        slack-text: "URL: ${{ inputs.production_urls }}"
-        slack-optional-icon_emoji: ":rocket:"
-
-    - name: Thread message 8
-      uses: archive/github-actions-slack@master
-      with:
-        slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
-        slack-channel: ${{ inputs.slack_channel }}
-        slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
-        slack-optional-username: 8. Timetell code
-        slack-text: "Code: ${{ inputs.timetell }}"
-        slack-optional-icon_emoji: ":clock1:"
