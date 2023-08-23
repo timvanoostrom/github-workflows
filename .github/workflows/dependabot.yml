@@ -102,7 +102,6 @@ jobs:
         production-urls: ${{ inputs.production_urls }}
         timetell-code: ${{ inputs.timetell_code }}
         release-url: ${{ steps.variables.outputs.release_url }}
-        repository: ${{ github.event.repository.name }}
 
     - name: Send Slack Message
       uses: archive/github-actions-slack@master
