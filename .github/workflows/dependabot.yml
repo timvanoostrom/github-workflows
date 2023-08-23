@@ -89,57 +89,16 @@ jobs:
         echo "The secret \"SLACK_TOKEN\" has not been created; please go to \"settings > secrets > actions\" to create it"
         exit 1
 
-#    - name: Write message to slack
-#      env:
-#        slack_token: ${{ secrets.SLACK_TOKEN }}
-#      uses: amsterdam/opdrachten-team-github-workflows/slack-message@v1
-#      with:
-#        token: ${{ env.slack_token }}
-#        channel: ${{ inputs.slack_channel }}
-#        message: ${{ github.workflow }}
-#        pr-url: ${{ steps.cpr.outputs.pull-request-url }}
-#        acceptance-pipeline: ${{ inputs.acceptance_pipeline }}
-#        production-pipeline: ${{ inputs.production_pipeline }}
-#        acceptance-urls: ${{ inputs.acceptance_urls }}
-#        production-urls: ${{ inputs.production_urls }}
-#        timetell-code: ${{ inputs.timetell_code }}
-#        release-url: ${{ steps.variables.outputs.release_url }}
-
-    - name: Send Slack Message
-      uses: archive/github-actions-slack@master
-      id: send-message
+    - name: Write message to slack
+      uses: amsterdam/opdrachten-team-github-workflows/slack-message@v1
       with:
-        slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
+        slack-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack_channel }}
-        slack-optional-username: ${{ github.event.repository.name }}
-        slack-text: No major upgrades found
-
-    - name: Send "Slack Message" Result
-      shell: bash
-      id: send-result
-      run: |
-        echo "Data - ${{ steps.send-message.outputs.slack-result }}"
-        echo "thread_ts=${{ fromJson(steps.send-message.outputs.slack-result).response.message.ts }}" >> $GITHUB_OUTPUT
-
-    - name: Thread message 1
-      uses: archive/github-actions-slack@master
-      with:
-        slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
-        slack-channel: ${{ inputs.slack_channel }}
-        slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
-        slack-optional-username: 1. Review Pull Request
-        slack-text: "URL: ${{ steps.cpr.outputs.pull-request-url }}"
-        slack-optional-icon_emoji: ":eyes:"
-
-    - name: Thread message 2
-      uses: archive/github-actions-slack@master
-      with:
-        slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
-        slack-channel: ${{ inputs.slack_channel }}
-        slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
-        slack-optional-username: 2. Release Naar Acceptatie (merge naar master)
-        slack-text: "URL: ${{ steps.cpr.outputs.pull-request-url }}"
-        slack-optional-icon_emoji: ":twisted_rightwards_arrows:"
+        message: No major upgrades found
+        pull-request-url: ${{ steps.cpr.outputs.pull-request-url }}
+        acceptance-pipeline: ${{ inputs.acceptance_pipeline }}
+        production-pipeline: ${{ inputs.production_pipeline }}
+        acceptance-urls: ${{ inputs.acceptance_urls }}
+        production-urls: ${{ inputs.production_urls }}
+        timetell-code: ${{ inputs.timetell_code }}
+        release-url: ${{ steps.variables.outputs.release_url }}

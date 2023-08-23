@@ -2,16 +2,16 @@ name: 'Slack Message'
 description: 'Send a message to Slack'
 
 inputs:
-  token:
+  slack-token:
     description: 'Slack token'
     required: true
-  channel:
+  slack-channel:
     description: 'Slack channel'
     required: true
   message:
     description: 'Message to send'
     required: true
-  pr-url:
+  pull-request-url:
     description: 'Pull request url'
     required: true
   release-url:
@@ -36,8 +36,9 @@ runs:
       id: send-message
       with:
         slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ inputs.token }}
-        slack-channel: ${{ inputs.channel }}
+        slack-bot-user-oauth-access-token: ${{ inputs.slack-token }}
+        slack-channel: ${{ inputs.slack_channel }}
+        slack-optional-username: ${{ github.event.repository.name }}
         slack-text: ${{ inputs.message }}
 
     - name: Send "Slack Message" Result
@@ -51,20 +52,22 @@ runs:
       uses: archive/github-actions-slack@master
       with:
         slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ inputs.token }}
+        slack-bot-user-oauth-access-token: ${{ inputs.slack-token }}
         slack-channel: ${{ inputs.slack_channel }}
         slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
-        slack-text: 1. Review Pull Request "${{inputs.pr_url}}"
+        slack-optional-username: 1. Review Pull Request
+        slack-text: "URL: ${{ input.pull-request-url }}"
         slack-optional-icon_emoji: ":eyes:"
 
     - name: Thread message 2
       uses: archive/github-actions-slack@master
       with:
         slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ inputs.token }}
+        slack-bot-user-oauth-access-token: ${{ inputs.slack-token }}
         slack-channel: ${{ inputs.slack_channel }}
         slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
-        slack-text: 2. Release Naar Acceptatie (merge naar master) "${{ inputs.pr_url }}"
+        slack-optional-username: 2. Release Naar Acceptatie (merge naar master)
+        slack-text: "URL: ${{ input.pull-request-url }}"
         slack-optional-icon_emoji: ":twisted_rightwards_arrows:"
 
 #        if [ -n "${{ inputs.acceptance_pipeline }}" ]; then
