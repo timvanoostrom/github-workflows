@@ -113,6 +113,7 @@ jobs:
         slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack_channel }}
         slack-optional-username: ${{ github.event.repository.name }}
+        slack-text: No major upgrades found
 
     - name: Send "Slack Message" Result
       shell: bash
