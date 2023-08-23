@@ -136,11 +136,11 @@ runs:
         slack-text: "Code: ${{ inputs.timetell_code }}"
         slack-optional-icon_emoji: ":clock1:"
 
-    - name: Run Python Script and Capture Output
+    - name: Check Major Upgrades
       shell: sh
       id: diff_checker
       run: |
-        diff=$(python .github/workflows/diff.py)
+        diff=$(make diff)
         echo "diff=$diff" >> $GITHUB_OUTPUT
 
     - name: Thread message 9
