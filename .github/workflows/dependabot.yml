@@ -108,7 +108,7 @@ jobs:
       id: send-message
       with:
         slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrest.SLACK_TOKEN }}
+        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack_channel }}
         slack-optional-username: ${{ github.event.repository.name }}
         slack-text: No major upgrades
@@ -124,7 +124,7 @@ jobs:
       uses: archive/github-actions-slack@master
       with:
         slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrest.SLACK_TOKEN }}
+        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack_channel }}
         slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
         slack-optional-username: 1. Review Pull Request
@@ -135,7 +135,7 @@ jobs:
       uses: archive/github-actions-slack@master
       with:
         slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrest.SLACK_TOKEN }}
+        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack_channel }}
         slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
         slack-optional-username: 2. Release Naar Acceptatie (merge naar master)
@@ -146,7 +146,7 @@ jobs:
       uses: archive/github-actions-slack@master
       with:
         slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrest.SLACK_TOKEN }}
+        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack_channel }}
         slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
         slack-optional-username: 3. Controleer Acceptatie Deployment Job
@@ -157,7 +157,7 @@ jobs:
       uses: archive/github-actions-slack@master
       with:
         slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrest.SLACK_TOKEN }}
+        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack_channel }}
         slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
         slack-optional-username: 4. Controleer Acceptatie
@@ -168,7 +168,7 @@ jobs:
       uses: archive/github-actions-slack@master
       with:
         slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrest.SLACK_TOKEN }}
+        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack_channel }}
         slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
         slack-optional-username: 5. Release Naar Productie (tag versie)
@@ -179,7 +179,7 @@ jobs:
       uses: archive/github-actions-slack@master
       with:
         slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrest.SLACK_TOKEN }}
+        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack_channel }}
         slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
         slack-optional-username: 6. Controleer Productie Deployment Job
@@ -190,7 +190,7 @@ jobs:
       uses: archive/github-actions-slack@master
       with:
         slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrest.SLACK_TOKEN }}
+        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack_channel }}
         slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
         slack-optional-username: 7. Controleer Productie
@@ -201,7 +201,7 @@ jobs:
       uses: archive/github-actions-slack@master
       with:
         slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ secrest.SLACK_TOKEN }}
+        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack_channel }}
         slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
         slack-optional-username: 8. Timetell code
