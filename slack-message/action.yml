@@ -34,6 +34,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: print channel
+      run: |
+          echo "channel: ${{ inputs.slack-channel }}"
+
     - name: Send Slack Message
       uses: archive/github-actions-slack@master
       id: send-message
