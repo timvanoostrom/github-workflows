@@ -96,9 +96,9 @@ jobs:
         slack-channel: ${{ inputs.slack_channel }}
         message: No major upgrades found
         pull-request-url: ${{ steps.cpr.outputs.pull-request-url }}
-        acceptance-pipeline: ${{ inputs.acceptance_pipeline }}
-        production-pipeline: ${{ inputs.production_pipeline }}
-        acceptance-urls: ${{ inputs.acceptance_urls }}
-        production-urls: ${{ inputs.production_urls }}
-        timetell-code: ${{ inputs.timetell_code }}
-        release-url: ${{ steps.variables.outputs.release_url }}
+        acceptance_pipeline: ${{ inputs.acceptance_pipeline }}
+        production_pipeline: ${{ inputs.production_pipeline }}
+        acceptance_urls: ${{ inputs.acceptance_urls }}
+        production_urls: ${{ inputs.production_urls }}
+        timetell_code: ${{ inputs.timetell_code }}
+        release_url: ${{ steps.variables.outputs.release_url }}

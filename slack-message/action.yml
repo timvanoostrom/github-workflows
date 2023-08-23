@@ -14,18 +14,18 @@ inputs:
   pull-request-url:
     description: 'Pull request url'
     required: true
-  release-url:
+  release_url:
     description: 'Release url'
     required: true
-  acceptance-pipeline:
+  acceptance_pipeline:
     description: 'Acceptance pipeline'
-  production-pipeline:
+  production_pipeline:
     description: 'Production pipeline'
-  acceptance-urls:
+  acceptance_urls:
     description: 'Acceptance urls'
-  production-urls:
+  production_urls:
     description: 'Production urls'
-  timetell-code:
+  timetell_code:
     description: 'Timetell code'
 
 runs:
@@ -133,5 +133,5 @@ runs:
         slack-channel: ${{ inputs.slack-channel }}
         slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
         slack-optional-username: 8. Timetell code
-        slack-text: "Code: ${{ inputs.timetell }}"
+        slack-text: "Code: ${{ inputs.timetell_code }}"
         slack-optional-icon_emoji: ":clock1:"
