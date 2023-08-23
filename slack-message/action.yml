@@ -47,7 +47,7 @@ runs:
         slack-function: send-message
         slack-bot-user-oauth-access-token: ${{ inputs.slack-token }}
         slack-channel: ${{ inputs.slack_channel }}
-        slack-optional-username: ${{ inputs.repository }}
+#        slack-optional-username: ${{ inputs.repository }}
         slack-text: ${{ inputs.message }}
 
     - name: Send "Slack Message" Result
