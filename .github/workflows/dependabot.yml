@@ -101,7 +101,6 @@ jobs:
         exit 1
 
     - name: Write message to slack
-      environment: dependabot
       env:
         slack_token: ${{ secrets.SLACK_TOKEN }}
       uses: amsterdam/opdrachten-team-github-workflows/slack-message@v1
