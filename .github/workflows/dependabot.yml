@@ -27,8 +27,7 @@ jobs:
   update-dependencies:
     name: Update Dependencies
     runs-on: ubuntu-latest
-    environment:
-      name: dependabot
+    environment: dependabot
     steps:
     - name: Login to GitHub Container Registry
       uses: amsterdam/opdrachten-team-github-workflows/ghcr-login@v1
