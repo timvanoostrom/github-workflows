@@ -27,7 +27,6 @@ jobs:
   update-dependencies:
     name: Update Dependencies
     runs-on: ubuntu-latest
-    environment: dependabot
     steps:
     - name: Login to GitHub Container Registry
       uses: amsterdam/opdrachten-team-github-workflows/ghcr-login@v1
@@ -38,11 +37,11 @@ jobs:
     - name: Update dependencies file
       run: make requirements
 
-    - name: Docker build and push to GHCR
-      uses: amsterdam/opdrachten-team-github-workflows/build-and-push@v1
-
-    - name: Run Tests
-      run: make test
+#    - name: Docker build and push to GHCR
+#      uses: amsterdam/opdrachten-team-github-workflows/build-and-push@v1
+#
+#    - name: Run Tests
+#      run: make test
 
     - name: Construct variables
       id: variables
