@@ -100,7 +100,7 @@ runs:
         slack-channel: ${{ inputs.slack-channel }}
         slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
         slack-optional-username: 5. Release Naar Productie (tag versie)
-        slack-text: "URL: ${{ steps.variables.outputs.release_url }}"
+        slack-text: "URL: ${{ inputs.release_url }}"
         slack-optional-icon_emoji: ":label:"
 
     - name: Thread message 6

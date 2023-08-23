@@ -7,7 +7,7 @@ on:
         description: 'Slack channel'
         type: string
         required: true
-      timetell:
+      timetell_code:
         description: 'Timetell project id'
         type: number
       acceptance_pipeline:
