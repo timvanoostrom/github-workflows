@@ -129,7 +129,7 @@ jobs:
         slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack_channel }}
         slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
-#        slack-optional-username: 1. Review Pull Request
+        slack-optional-username: 1. Review Pull Request
         slack-text: "1. Review Pull Request ${{ steps.cpr.outputs.pull-request-url }}"
         slack-optional-icon_emoji: ":eyes:"
 
@@ -140,6 +140,6 @@ jobs:
         slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack_channel }}
         slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
-#        slack-optional-username: 2. Release Naar Acceptatie (merge naar master)
+        slack-optional-username: 2. Release Naar Acceptatie (merge naar master)
         slack-text: "2. Release Naar Acceptatie ${{ steps.cpr.outputs.pull-request-url }}"
         slack-optional-icon_emoji: ":twisted_rightwards_arrows:"
