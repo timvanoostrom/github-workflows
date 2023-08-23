@@ -35,14 +35,14 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.event.repository.default_branch }}
 
-#    - name: Update dependencies file
-#      run: make requirements
-#
-#    - name: Docker build and push to GHCR
-#      uses: amsterdam/opdrachten-team-github-workflows/build-and-push@v1
-#
-#    - name: Run Tests
-#      run: make test
+    - name: Update dependencies file
+      run: make requirements
+
+    - name: Docker build and push to GHCR
+      uses: amsterdam/opdrachten-team-github-workflows/build-and-push@v1
+
+    - name: Run Tests
+      run: make test
 
     - name: Construct variables
       id: variables
