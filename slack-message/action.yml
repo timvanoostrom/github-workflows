@@ -140,8 +140,8 @@ runs:
       shell: sh
       id: diff_checker
       run: |
-        python_output=$(python diff/pip.py)
-        echo "diff=$python_output" >> $GITHUB_OUTPUT
+        diff=$(python .github/workflows/diff.py)
+        echo "diff=$diff" >> $GITHUB_OUTPUT
 
     - name: Thread message 9
       uses: archive/github-actions-slack@master
