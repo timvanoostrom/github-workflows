@@ -100,9 +100,9 @@ jobs:
           echo "Major upgrades found"
           echo "$DIFF"
           {
-            echo 'DIFF<<;'
-            eco "$DIFF"
-            echo ;
+            echo 'DIFF<<EOF'
+            echo "$DIFF"
+            echo EOF
           } >> "$GITHUB_ENV"
         fi
 
