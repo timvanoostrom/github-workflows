@@ -5,6 +5,7 @@ on:
     inputs:
       check_diff:
         description: 'Check diff'
+        type: boolean
         default: 'false'
       slack_channel:
         description: 'Slack channel'
@@ -93,7 +94,6 @@ jobs:
 
     - name: Check Major Upgrades
       shell: sh
-      # Run if "check_diff" is true
       if: ${{ inputs.check_diff == 'true' }}
       id: diff_checker
       run: |
