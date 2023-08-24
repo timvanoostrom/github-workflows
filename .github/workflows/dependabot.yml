@@ -95,26 +95,23 @@ jobs:
         export DIFF=$(make diff)
         if [ -z "$DIFF" ]; then
           echo "No major upgrades found"
+          echo "diff=No major upgrades found" >> $GITHUB_OUTPUT
         else
           echo "Major upgrades found"
           echo "$DIFF"
           echo "diff=$DIFF" >> $GITHUB_OUTPUT
         fi
 
-    - name: Print Major Upgrades
-      run: |
-        echo "Diff found: ${{ steps.diff_checker.outputs.diff }}"
-
-#    - name: Write message to slack
-#      uses: amsterdam/opdrachten-team-github-workflows/slack-message@v1
-#      with:
-#        slack-token: ${{ secrets.SLACK_TOKEN }}
-#        slack-channel: ${{ inputs.slack_channel }}
-#        message: No major upgrades found
-#        pull-request-url: ${{ steps.cpr.outputs.pull-request-url }}
-#        acceptance_pipeline: ${{ inputs.acceptance_pipeline }}
-#        production_pipeline: ${{ inputs.production_pipeline }}
-#        acceptance_urls: ${{ inputs.acceptance_urls }}
-#        production_urls: ${{ inputs.production_urls }}
-#        timetell_code: ${{ inputs.timetell_code }}
-#        release_url: ${{ steps.variables.outputs.release_url }}
+    - name: Write message to slack
+      uses: amsterdam/opdrachten-team-github-workflows/slack-message@v1
+      with:
+        slack-token: ${{ secrets.SLACK_TOKEN }}
+        slack-channel: ${{ inputs.slack_channel }}
+        message: ${{ steps.diff_checker.outputs.diff }}
+        pull-request-url: ${{ steps.cpr.outputs.pull-request-url }}
+        acceptance_pipeline: ${{ inputs.acceptance_pipeline }}
+        production_pipeline: ${{ inputs.production_pipeline }}
+        acceptance_urls: ${{ inputs.acceptance_urls }}
+        production_urls: ${{ inputs.production_urls }}
+        timetell_code: ${{ inputs.timetell_code }}
+        release_url: ${{ steps.variables.outputs.release_url }}
