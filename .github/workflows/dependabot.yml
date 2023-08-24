@@ -95,12 +95,10 @@ jobs:
         export DIFF=$(make diff)
         if [ -z "$DIFF" ]; then
           echo "No major upgrades found"
-          exit 0
         else
           echo "Major upgrades found"
           echo "$DIFF"
           echo "diff=$DIFF" >> $GITHUB_OUTPUT
-          exit 1
         fi
 
     - name: Print Major Upgrades
