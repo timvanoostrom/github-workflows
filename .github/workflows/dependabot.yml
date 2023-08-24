@@ -3,6 +3,9 @@ name: Opdrachten Team Dependabot
 on:
   workflow_call:
     inputs:
+      check_diff:
+        description: 'Check diff'
+        default: 'false'
       slack_channel:
         description: 'Slack channel'
         type: string
@@ -32,7 +35,7 @@ jobs:
       uses: amsterdam/opdrachten-team-github-workflows/ghcr-login@v1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        branch: feature/dependabot  # TODO: ${{ github.event.repository.default_branch }}
+        branch: ${{ github.event.repository.default_branch }}
 
     - name: Update dependencies file
       run: make requirements
@@ -90,6 +93,8 @@ jobs:
 
     - name: Check Major Upgrades
       shell: sh
+      # Run if "check_diff" is true
+      if: ${{ inputs.check_diff == 'true' }}
       id: diff_checker
       run: |
         export DIFF=$(make diff)
