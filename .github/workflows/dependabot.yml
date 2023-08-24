@@ -57,20 +57,26 @@ jobs:
       id: variables
       run: | 
         today=$(date +'%Y-%m-%d')
-        echo "today=$(date +'%Y-%m-%d')" 
+        echo "today=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
         
         title="Maintenance run $today"
         title_html=$(echo $title | sed 's/ /%20/g')
-        echo "title=$title" 
+        echo "title=$title" >> $GITHUB_OUTPUT
+        echo "title_html=$title_html" >> $GITHUB_OUTPUT
         
         # Increment minor version of last tag. Use 1.0.0 if there is no latest_tag
-        latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
-        echo "latest_tag=$latest_tag" 
+        latest_hash=$(git rev-list --tags --max-count=1)
+        if [ -n "$latest_hash" ]; then
+          latest_tag=$(git describe --tags $latest_hash)
+          echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
+          next_tag=$(echo $latest_tag | awk -F. -v OFS=. '{$NF = $NF + 1;} 1')
+        else
+          echo "latest_tag=No tags found" >> $GITHUB_OUTPUT
+          next_tag="1.0.0"
+        fi
+        echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
         
-#        next_tag=$(echo $latest_tag | awk -F. -v OFS=. '{$NF = $NF + 1;} 1' || echo "1.0.0")
-#        echo "next_tag=$next_tag"
-#
-#        echo "release_url=${{ github.event.repository.html_url }}/releases/new?tag=$next_tag&title=$title_html"
+        echo "release_url=${{ github.event.repository.html_url }}/releases/new?tag=$next_tag&title=$title_html"
         
     - name: Print variables
       run: |
