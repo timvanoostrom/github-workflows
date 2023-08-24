@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       check_diff:
-        description: 'Check diff'
+        description: 'Check major upgrades. Requires the Makefile target "diff"'
         type: boolean
         default: false
       slack_channel:
