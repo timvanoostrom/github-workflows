@@ -76,7 +76,7 @@ jobs:
         fi
         echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
         
-        echo "release_url=${{ github.event.repository.html_url }}/releases/new?tag=$next_tag&title=$title_html"
+        echo "release_url=${{ github.event.repository.html_url }}/releases/new?tag=$next_tag&title=$title_html" >> $GITHUB_OUTPUT
         
     - name: Print variables
       run: |
