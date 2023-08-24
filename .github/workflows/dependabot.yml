@@ -34,8 +34,8 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         branch: feature/dependabot  # TODO: ${{ github.event.repository.default_branch }}
 
-    - name: Update dependencies file
-      run: make requirements
+#    - name: Update dependencies file
+#      run: make requirements
 
 #    - name: Docker build and push to GHCR
 #      uses: amsterdam/opdrachten-team-github-workflows/build-and-push@v1
@@ -99,7 +99,8 @@ jobs:
         else
           echo "Major upgrades found"
           echo "$DIFF"
-          echo "diff=$DIFF" >> $GITHUB_OUTPUT
+          # Save to GITHUB_OUTPUT and replace ';' with newlines
+          echo "diff=$(echo "$DIFF" | sed 's/;/\n/g')" >> $GITHUB_OUTPUT
         fi
 
     - name: Write message to slack

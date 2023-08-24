@@ -39,7 +39,7 @@ runs:
         slack-bot-user-oauth-access-token: ${{ inputs.slack-token }}
         slack-channel: ${{ inputs.slack-channel }}
         slack-optional-username: ${{ github.event.repository.name }}
-        slack-text: ${{ inputs.message }}
+        slack-text: " ${{ inputs.message }}"
 
     - name: Send "Slack Message" Result
       shell: bash
@@ -135,14 +135,3 @@ runs:
         slack-optional-username: 8. Timetell code
         slack-text: "Code: ${{ inputs.timetell_code }}"
         slack-optional-icon_emoji: ":clock1:"
-
-#    - name: Thread message 9
-#      uses: archive/github-actions-slack@master
-#      with:
-#        slack-function: send-message
-#        slack-bot-user-oauth-access-token: ${{ inputs.slack-token }}
-#        slack-channel: ${{ inputs.slack-channel }}
-#        slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
-#        slack-optional-username: 9. Mayor upgrades
-#        slack-text: "Code: ${{ steps.diff_checker.outputs.diff }}"
-#        slack-optional-icon_emoji: ":arrow_up:"
