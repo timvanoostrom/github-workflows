@@ -136,20 +136,13 @@ runs:
         slack-text: "Code: ${{ inputs.timetell_code }}"
         slack-optional-icon_emoji: ":clock1:"
 
-    - name: Check Major Upgrades
-      shell: sh
-      id: diff_checker
-      run: |
-        diff=$(python3 deploy/diff.py)
-        echo "diff=$diff" >> $GITHUB_OUTPUT
-
-    - name: Thread message 9
-      uses: archive/github-actions-slack@master
-      with:
-        slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ inputs.slack-token }}
-        slack-channel: ${{ inputs.slack-channel }}
-        slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
-        slack-optional-username: 9. Mayor upgrades
-        slack-text: "Code: ${{ steps.diff_checker.outputs.diff }}"
-        slack-optional-icon_emoji: ":arrow_up:"
+#    - name: Thread message 9
+#      uses: archive/github-actions-slack@master
+#      with:
+#        slack-function: send-message
+#        slack-bot-user-oauth-access-token: ${{ inputs.slack-token }}
+#        slack-channel: ${{ inputs.slack-channel }}
+#        slack-optional-thread_ts: ${{ steps.send-result.outputs.thread_ts }}
+#        slack-optional-username: 9. Mayor upgrades
+#        slack-text: "Code: ${{ steps.diff_checker.outputs.diff }}"
+#        slack-optional-icon_emoji: ":arrow_up:"
