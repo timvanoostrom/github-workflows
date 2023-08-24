@@ -41,6 +41,12 @@ runs:
         slack-optional-username: ${{ github.event.repository.name }}
         slack-text: " ${{ inputs.message }}"
 
+    - name: Send "Slack Message" Result
+      shell: bash
+      id: send-result
+      run: |
+        echo "thread_ts=${{ fromJson(steps.send-message.outputs.slack-result).response.message.ts }}" >> $GITHUB_OUTPUT
+
     - name: Thread message 1
       uses: archive/github-actions-slack@master
       with:
