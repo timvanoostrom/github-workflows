@@ -7,6 +7,10 @@ on:
         description: 'Check major upgrades. Requires the Makefile target "diff"'
         type: boolean
         default: false
+      run_tests:
+        description: 'Run tests. Requires the Makefile targets "build", "pull", "push" and "test"'
+        type: boolean
+        default: false
       slack_channel:
         description: 'Slack channel'
         type: string
@@ -41,26 +45,30 @@ jobs:
     - name: Update dependencies file
       run: make requirements
 
-#    - name: Docker build and push to GHCR
-#      uses: amsterdam/opdrachten-team-github-workflows/build-and-push@v1
-#
-#    - name: Run Tests
-#      run: make test
+    - name: Docker build and push to GHCR
+      if: ${{ inputs.run_tests == 'true' }}
+      uses: amsterdam/opdrachten-team-github-workflows/build-and-push@v1
+
+    - name: Run Tests
+        if: ${{ inputs.run_tests == 'true' }}
+      run: make test
 
     - name: Construct variables
       id: variables
       run: | 
         today=$(date +'%Y-%m-%d')
+        echo "today=$(date +'%Y-%m-%d')" >>  $GITHUB_OUTPUT
+        
         title="Maintenance run $today"
         title_html=$(echo $title | sed 's/ /%20/g')
-        git fetch --tags
-        latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
-        next_tag=$(echo $latest_tag | awk -F. -v OFS=. '{$NF = $NF + 1;} 1')
-        
-        echo "today=$(date +'%Y-%m-%d')" >>  $GITHUB_OUTPUT
         echo "title=$title" >> $GITHUB_OUTPUT
-        echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
+        
+        # Increment minor version of last tag. Use 1.0.0 if there is no latest_tag
+        latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+        
+        next_tag=$(echo $latest_tag | awk -F. -v OFS=. '{$NF = $NF + 1;} 1' || echo "1.0.0")
         echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
+        
         echo "release_url=${{ github.event.repository.html_url }}/releases/new?tag=$next_tag&title=$title_html" >> $GITHUB_OUTPUT
         
     - name: Print variables
