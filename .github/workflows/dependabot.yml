@@ -50,7 +50,7 @@ jobs:
       uses: amsterdam/opdrachten-team-github-workflows/build-and-push@v1
 
     - name: Run Tests
-        if: ${{ inputs.run_tests == 'true' }}
+      if: ${{ inputs.run_tests == 'true' }}
       run: make test
 
     - name: Construct variables
