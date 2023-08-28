@@ -18,19 +18,20 @@ runs:
       shell: bash
       run: |
           echo "registry=${{ inputs.registry }}"
-          echo "repository=${{ inputs.repository }}"
+          echo "repository=${{ github.user }}/${{ inputs.repository }}" 
+          echo "repository=${{ github.user }}/${{ inputs.repository }}" >> $GITHUB_OUTPUT
           echo "version=${{ inputs.version }}"
     - name: Docker build
       shell: bash
       run: make build
       env:
         REGISTRY: ${{ inputs.registry }}
-        REPOSITORY: ${{ inputs.repository }}
+        REPOSITORY: ${{ steps.variables.outputs.repository }}
         VERSION: ${{ inputs.version }}
     - name: Docker push
       shell: bash
       run: make push
       env:
         REGISTRY: ${{ inputs.registry }}
-        REPOSITORY: ${{ inputs.repository }}
+        REPOSITORY: ${{ steps.variables.outputs.repository }}
         VERSION: ${{ inputs.version }}
