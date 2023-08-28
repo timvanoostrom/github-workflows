@@ -20,13 +20,6 @@ runs:
           echo "registry=${{ inputs.registry }}"
           echo "repository=${{ inputs.repository }}"
           echo "version=${{ inputs.version }}"
-    - name: Docker pull
-      shell: bash
-      run: make pull
-      env:
-        REGISTRY: ${{ inputs.registry }}
-        REPOSITORY: ${{ inputs.repository }}
-        VERSION: ${{ inputs.version }}
     - name: Docker build
       shell: bash
       run: make build
