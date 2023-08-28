@@ -6,7 +6,7 @@ inputs:
     description: 'GitHub Token'
     required: true
   branch:
-    description: 'Checkout ref'
+    description: 'Checkout ref (branch or commit)'
     required: false
 runs:
   using: "composite"
@@ -22,6 +22,3 @@ runs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ inputs.github-token }}
-#        registry: <registry-name>.azurecr.io
-#        username: ${{ secrets.AZURE_CLIENT_ID }}
-#        password: ${{ secrets.AZURE_CLIENT_SECRET }}

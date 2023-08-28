@@ -7,10 +7,6 @@ on:
         description: 'Check major upgrades. Requires the Makefile target "diff"'
         type: boolean
         default: false
-      run_tests:
-        description: 'Run tests. Requires the Makefile targets "build", "pull", "push" and "test"'
-        type: boolean
-        default: false
       slack_channel:
         description: 'Slack channel'
         type: string
@@ -36,21 +32,20 @@ jobs:
     name: Update Dependencies
     runs-on: ubuntu-latest
     steps:
-    - name: Login to GitHub Container Registry
+    - name: Checkout and Login to GitHub Container Registry
       uses: amsterdam/opdrachten-team-github-workflows/ghcr-login@v1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.event.repository.default_branch }}
 
     - name: Update dependencies file
       run: make requirements
 
     - name: Docker build and push to GHCR
-      if: ${{ inputs.run_tests == 'true' }}
       uses: amsterdam/opdrachten-team-github-workflows/build-and-push@v1
+      with:
+        repository: ${{ github.event.repository.name }}
 
     - name: Run Tests
-      if: ${{ inputs.run_tests == 'true' }}
       run: make test
 
     - name: Construct variables
