@@ -18,8 +18,8 @@ runs:
       shell: bash
       run: |
           echo "registry=${{ inputs.registry }}"
-          echo "repository=${{ github.user }}/${{ inputs.repository }}" 
-          echo "repository=${{ github.user }}/${{ inputs.repository }}" >> $GITHUB_OUTPUT
+          echo "repository=${{ github.repository_owner }}/${{ github.user }}/${{ inputs.repository }}" 
+          echo "repository=${{ github.repository_owner }}/${{ github.user }}/${{ inputs.repository }}" >> $GITHUB_OUTPUT
           echo "version=${{ inputs.version }}"
     - name: Docker build
       shell: bash
