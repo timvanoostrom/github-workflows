@@ -42,8 +42,6 @@ jobs:
 
     - name: Docker build and push to GHCR
       uses: amsterdam/opdrachten-team-github-workflows/build-and-push@v1
-      with:
-        repository: ${{ github.event.repository.name }}
 
     - name: Run Tests
       run: make test
