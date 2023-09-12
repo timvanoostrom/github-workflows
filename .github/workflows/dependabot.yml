@@ -94,7 +94,7 @@ jobs:
 
     - name: Check if SLACK_TOKEN exists
       env:
-        slack_token: ${{ secrets.SLACK_TOKEN }}
+        slack_token: ${{ secrets.DEPENDABOT_SLACK_TOKEN }}
       if: ${{ env.slack_token == '' }}
       run: |
         echo "The secret \"SLACK_TOKEN\" has not been created; please go to \"settings > secrets > actions\" to create it"
@@ -122,7 +122,7 @@ jobs:
     - name: Write message to slack
       uses: amsterdam/opdrachten-team-github-workflows/slack-message@v1
       with:
-        slack-token: ${{ secrets.SLACK_TOKEN }}
+        slack-token: ${{ secrets.DEPENDABOT_SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack_channel }}
         message: ${{ env.DIFF }}
         pull-request-url: ${{ steps.cpr.outputs.pull-request-url }}
