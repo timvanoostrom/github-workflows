@@ -139,6 +139,6 @@ jobs:
       with:
         slack-function: send-message
         slack-bot-user-oauth-access-token: ${{ secrets.DEPENDABOT_SLACK_TOKEN }}
-        slack-channel: ${{ inputs.slack-channel }}
+        slack-channel: ${{ inputs.slack_channel }}
         slack-optional-username: ${{ github.event.repository.name }}
         slack-text: "Workflow failed! \nHere is the url: ${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}"
