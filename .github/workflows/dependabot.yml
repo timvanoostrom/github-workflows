@@ -138,7 +138,7 @@ jobs:
       uses: archive/github-actions-slack@master
       with:
         slack-function: send-message
-        slack-bot-user-oauth-access-token: ${{ inputs.slack-token }}
+        slack-bot-user-oauth-access-token: ${{ inputs.DEPENDABOT_SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack-channel }}
         slack-optional-username: ${{ github.event.repository.name }}
         slack-text: "Workflow failed! \nHere is the url: ${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}"
