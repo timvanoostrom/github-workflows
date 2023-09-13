@@ -132,3 +132,13 @@ jobs:
         production_urls: ${{ inputs.production_urls }}
         timetell_code: ${{ inputs.timetell_code }}
         release_url: ${{ steps.variables.outputs.release_url }}
+
+    - name: Raise slack notification failure
+      if: always()
+      uses: archive/github-actions-slack@master
+      with:
+        slack-function: send-message
+        slack-bot-user-oauth-access-token: ${{ inputs.slack-token }}
+        slack-channel: ${{ inputs.slack-channel }}
+        slack-optional-username: ${{ github.event.repository.name }}
+        slack-text: "Workflow failed! \nHere is the url: ${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}"
