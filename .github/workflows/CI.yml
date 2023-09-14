@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Login to GitHub Container Registry
-        uses: amsterdam/opdrachten-team-github-workflows/ghcr-login@v1
+        uses: amsterdam/github-workflows/ghcr-login@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker build and push to GHCR
-        uses: amsterdam/opdrachten-team-github-workflows/build-and-push@v1
+        uses: amsterdam/github-workflows/build-and-push@v1
 
   test:
     name: Tests
@@ -22,7 +22,7 @@ jobs:
     needs: build-container
     steps:
       - name: Login to GitHub Container Registry
-        uses: amsterdam/opdrachten-team-github-workflows/ghcr-login@v1
+        uses: amsterdam/github-workflows/ghcr-login@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -35,7 +35,7 @@ jobs:
     needs: build-container
     steps:
       - name: Login to GitHub Container Registry
-        uses: amsterdam/opdrachten-team-github-workflows/ghcr-login@v1
+        uses: amsterdam/github-workflows/ghcr-login@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
