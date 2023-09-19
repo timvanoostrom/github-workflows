@@ -61,12 +61,12 @@ jobs:
         latest_hash=$(git rev-list --tags --max-count=1)
         echo "latest_hash=$latest_hash" >> $GITHUB_OUTPUT
         if [ -n "$latest_hash" ]; then
-          echo "latest_tag=No tags found" >> $GITHUB_OUTPUT
-          next_tag="1.0.0"
-        else
           latest_tag=$(git describe --tags $latest_hash)
           echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
           next_tag=$(echo $latest_tag | awk -F. -v OFS=. '{$NF = $NF + 1;} 1')
+        else
+          echo "latest_tag=No tags found" >> $GITHUB_OUTPUT
+          next_tag="1.0.0"
         fi
         echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
 
