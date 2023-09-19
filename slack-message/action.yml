@@ -39,7 +39,7 @@ runs:
         slack-bot-user-oauth-access-token: ${{ inputs.slack-token }}
         slack-channel: ${{ inputs.slack-channel }}
         slack-optional-username: ${{ github.event.repository.name }}
-        slack-text: "Major upgrades:\n${{ inputs.message }}"
+        slack-text: "Pull request created with updated dependencies. \n${{ inputs.message }}"
 
     - name: Send "Slack Message" Result
       shell: bash
