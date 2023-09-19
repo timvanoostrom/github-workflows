@@ -59,7 +59,7 @@ jobs:
 
         # Increment minor version of last tag. Use 1.0.0 if there is no latest_tag
         latest_hash=$(git rev-list --tags --max-count=1)
-        if [ -z "${{ latest_hash }}" ]; then
+        if [ -n "$latest_hash" ]; then
           echo "latest_tag=No tags found" >> $GITHUB_OUTPUT
           next_tag="1.0.0"
         else
