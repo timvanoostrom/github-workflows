@@ -59,6 +59,7 @@ jobs:
 
         # Increment minor version of last tag. Use 1.0.0 if there is no latest_tag
         latest_hash=$(git rev-list --tags --max-count=1)
+        echo "latest_hash=$latest_hash" >> $GITHUB_OUTPUT
         if [ -n "$latest_hash" ]; then
           echo "latest_tag=No tags found" >> $GITHUB_OUTPUT
           next_tag="1.0.0"
@@ -73,9 +74,9 @@ jobs:
 
     - name: Print variables
       run: |
-        echo "Latest hash is ${{ latest_hash }}"
         echo "Today is ${{ steps.variables.outputs.today }}"
         echo "Title is ${{ steps.variables.outputs.title }}"
+        echo "Latest tag hash is ${{ latest_hash }}"
         echo "Latest tag is ${{ steps.variables.outputs.latest_tag }}"
         echo "Next tag is ${{ steps.variables.outputs.next_tag }}"
         echo "Release url is ${{ steps.variables.outputs.release_url }}"
