@@ -76,7 +76,7 @@ jobs:
       run: |
         echo "Today is ${{ steps.variables.outputs.today }}"
         echo "Title is ${{ steps.variables.outputs.title }}"
-        echo "Latest tag hash is ${{ latest_hash }}"
+        echo "Latest tag hash is ${{ steps.variables.outputs.latest_hash }}"
         echo "Latest tag is ${{ steps.variables.outputs.latest_tag }}"
         echo "Next tag is ${{ steps.variables.outputs.next_tag }}"
         echo "Release url is ${{ steps.variables.outputs.release_url }}"
