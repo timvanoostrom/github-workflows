@@ -7,23 +7,12 @@ on:
         description: 'Check linting. Requires the Makefile target "lint"'
         type: boolean
         default: false
-      release_stop:
-        description: 'Implement a release stop'
-        type: boolean
-        default: false
 
 jobs:
   build-container:
     name: Build container
     runs-on: ubuntu-latest
     steps:
-      - name: Release stop
-        if: github.event.inputs.release_stop == 'true'
-        run: |
-          echo "A release stop has been implemented;"
-          echo "To release, please change the variable 'release_stop' to 'false' in the workflow file"
-          exit 1
-
       - name: Login to GitHub Container Registry
         uses: amsterdam/github-workflows/ghcr-login@v1
         with:
