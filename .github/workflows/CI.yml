@@ -35,7 +35,7 @@ jobs:
         run: make test
 
   lint:
-    if: ${{ github.event.inputs.check_linting == 'true' }}
+    if: ${{ github.event.inputs.check_linting == true }}
     name: Linting
     runs-on: ubuntu-latest
     needs: build-container
