@@ -51,6 +51,24 @@ jobs:
     - name: Update dependencies file
       run: make requirements
 
+    - name: Check Major Upgrades
+      shell: sh
+      if: ${{ inputs.check_diff }}
+      id: diff_checker
+      run: |
+        export DIFF=$(make diff)
+        if [ -z "$DIFF" ]; then
+          echo "No major upgrades found"
+        else
+          echo "Major upgrades found"
+          echo "$DIFF"
+          {
+            echo 'DIFF<<EOF'
+            echo "$DIFF"
+            echo EOF
+          } >> "$GITHUB_ENV"
+        fi
+
     - name: Construct variables
       id: variables
       run: |
@@ -115,24 +133,6 @@ jobs:
       run: |
         echo "The secret \"DEPENDABOT_APP_SLACK_TOKEN\" has not been created; please go to \"settings > secrets > actions\" to create it"
         exit 1
-
-    - name: Check Major Upgrades
-      shell: sh
-      if: ${{ inputs.check_diff }}
-      id: diff_checker
-      run: |
-        export DIFF=$(make diff)
-        if [ -z "$DIFF" ]; then
-          echo "No major upgrades found"
-        else
-          echo "Major upgrades found"
-          echo "$DIFF"
-          {
-            echo 'DIFF<<EOF'
-            echo "$DIFF"
-            echo EOF
-          } >> "$GITHUB_ENV"
-        fi
 
     - name: Write message to slack
       uses: amsterdam/github-workflows/slack-message@v1
