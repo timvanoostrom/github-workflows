@@ -122,10 +122,7 @@ jobs:
       id: diff_checker
       run: |
         export DIFF=$(make diff)
-        if [ -z "$DIFF" ]; then
-          echo "No major upgrades found"
-          echo "diff=No major upgrades found" >> $GITHUB_OUTPUT
-        else
+        if [ "$DIFF" != '' ]; then
           echo "Major upgrades found"
           echo "$DIFF"
           {
@@ -133,6 +130,9 @@ jobs:
             echo "$DIFF"
             echo EOF
           } >> "$GITHUB_ENV"
+        else
+          echo "No major upgrades found"
+          echo "diff=No major upgrades found" >> $GITHUB_OUTPUT
         fi
 
     - name: Write message to slack
