@@ -122,18 +122,12 @@ jobs:
       id: diff_checker
       run: |
         export DIFF=$(make diff)
-        if [ "$DIFF" != '' ]; then
-          echo "Major upgrades found"
+        echo "$DIFF"
+        {
+          echo 'DIFF<<EOF'
           echo "$DIFF"
-          {
-            echo 'DIFF<<EOF'
-            echo "$DIFF"
-            echo EOF
-          } >> "$GITHUB_ENV"
-        else
-          echo "No major upgrades found"
-          echo "diff=No major upgrades found" >> $GITHUB_OUTPUT
-        fi
+          echo EOF
+        } >> "$GITHUB_ENV"
 
     - name: Write message to slack
       uses: amsterdam/github-workflows/slack-message@v1
