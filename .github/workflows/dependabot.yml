@@ -10,7 +10,8 @@ on:
       slack_channel:
         description: 'Slack channel'
         type: string
-        required: true
+        required: false
+        default: ''
       timetell_code:
         description: 'Timetell project id'
         type: number
@@ -129,13 +130,14 @@ jobs:
     - name: Check if SLACK_TOKEN exists
       env:
         slack_token: ${{ secrets.DEPENDABOT_APP_SLACK_TOKEN }}
-      if: ${{ env.slack_token == '' }}
+      if: ${{ env.slack_token == '' && inputs.slack_channel != '' }}
       run: |
         echo "The secret \"DEPENDABOT_APP_SLACK_TOKEN\" has not been created; please go to \"settings > secrets > actions\" to create it"
         exit 1
 
     - name: Write message to slack
       uses: amsterdam/github-workflows/slack-message@v1
+      if: ${{ inputs.slack_channel != '' }}
       with:
         slack-token: ${{ secrets.DEPENDABOT_APP_SLACK_TOKEN }}
         slack-channel: ${{ inputs.slack_channel }}
